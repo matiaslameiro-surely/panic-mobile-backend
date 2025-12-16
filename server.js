@@ -1,7 +1,14 @@
 import express from "express";
+import { createServer } from "node:http";
+import { Server } from "socket.io";
 
 const app = express();
+
+const server = createServer(app);
+
 app.use(express.json());
+
+const io = new Server(server);
 
 // Contador de llamadas
 const counter = {
@@ -9,7 +16,8 @@ const counter = {
   battery: 0,
   network: 0,
   general: 0,
-  permissions: 0
+  permissions: 0,
+  statusAlert: 0
 }
 
 app.post("/location", (req, res) => {
@@ -39,8 +47,16 @@ app.post("/permissions", (req, res) => {
 });
 
 
+io.on('connection', (socket) => {
+  console.log(`Conexion establecida con ${socket.id} `)
+  socket.on("status", (arg) => {
+    console.log(console.log(` Status Alerta (llamada #${++counter.statusAlert}):`, arg)); 
+  });
+});
+
+
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`🚀 Servidor escuchando en http://localhost:${PORT}`);
 });
