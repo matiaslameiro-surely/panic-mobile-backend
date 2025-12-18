@@ -48,9 +48,9 @@ app.post("/permissions", (req, res) => {
 
 
 io.on('connection', (socket) => {
-  console.log(`Conexion establecida con ${socket.id} `)
+  console.log(`🔗 Conexion establecida con ${socket.id} `)
   socket.on("status", (arg) => {
-    console.log(console.log(` Status Alerta (llamada #${++counter.statusAlert}):`, arg)); 
+    console.log(console.log(`🚨 Status Alerta (llamada #${++counter.statusAlert}):`, arg)); 
   });
 });
 
