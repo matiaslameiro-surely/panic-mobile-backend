@@ -168,6 +168,7 @@ app.post('/panic-alert', (req, res) => {
 })
 
 app.post('/panic-alert/deactivate', (req, res) => {
+  const { deactivationCode } = req.body
   if (code !== deactivationCode) {
     res.status(400).json({ message: 'El código de desactivación no es válido' })
     console.log(`❌ Código de desactivación no válido:`, deactivationCode)
