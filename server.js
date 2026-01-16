@@ -8,7 +8,13 @@ const server = createServer(app)
 
 app.use(express.json())
 
-const io = new Server(server)
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+  },
+  transports: ['websocket'],
+})
 
 // Contador de llamadas
 const counter = {
@@ -181,7 +187,7 @@ app.post('/panic-alert/deactivate', (req, res) => {
 io.on('connection', (socket) => {
   console.log(`🔗 Conexion establecida con ${socket.id} `)
   socket.on('status', (arg) => {
-    console.log(console.log(`🚨 Status Alerta (llamada #${++counter.statusAlert}):`, arg)) 
+    console.log(`🚨 Status Alerta (llamada #${++counter.statusAlert}):`, arg)
   })
 })
 
