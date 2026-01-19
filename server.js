@@ -1,10 +1,16 @@
 import express from 'express'
 import { createServer } from 'node:http'
 import { Server } from 'socket.io'
+import cors from 'cors'
 
 const app = express()
 
 const server = createServer(app)
+
+app.use(cors({
+  origin: '*',
+  credential: true
+}))
 
 app.use(express.json())
 
@@ -12,8 +18,10 @@ const io = new Server(server, {
   cors: {
     origin: '*',
     methods: ['GET', 'POST'],
+    credentials: true
   },
-  transports: ['websocket'],
+  transports: ['websocket', 'polling'],
+  allowEIO3: true
 })
 
 // Contador de llamadas
