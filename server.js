@@ -125,14 +125,6 @@ app.put('/config/deactivation-code', (req, res) => {
   })
 })
 
-app.put('/config/emergency-contact', (req, res) => {
-  const { emergencyContact } = req.body
-  console.log(`✅ Contacto de emergencia:`, emergencyContact)
-  res.status(200).json({
-    emergencyContact,
-  })
-})
-
 app.get('/notifications', (req, res) => {
   const notifications = [
     {

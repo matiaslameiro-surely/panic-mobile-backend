@@ -234,29 +234,6 @@ Actualiza el código de desactivación del dispositivo.
 }
 ```
 
-### PUT `/config/emergency-contact`
-Actualiza el contacto de emergencia.
-
-**Request Body:**
-```json
-{
-  "emergencyContact": {
-    "name": "María García",
-    "phone": "+54 1199887766"
-  }
-}
-```
-
-**Response:**
-```json
-{
-  "emergencyContact": {
-    "name": "María García",
-    "phone": "+54 1199887766"
-  }
-}
-```
-
 ### GET `/notifications`
 Obtiene la lista de notificaciones del usuario.
 
