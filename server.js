@@ -187,7 +187,7 @@ app.post('/panic-alert/deactivate', (req, res) => {
   res.sendStatus(200)
 })
 
-app.post('monitoring/start', (req, res) => {
+app.post('/monitoring/start', (req, res) => {
   const { userId } = req.body
 
   if (!userId) {
