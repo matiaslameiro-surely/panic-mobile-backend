@@ -2,6 +2,7 @@ import express from 'express'
 import { createServer } from 'node:http'
 import { Server } from 'socket.io'
 import cors from 'cors'
+import { timeStamp } from 'node:console'
 
 const app = express()
 
@@ -31,10 +32,12 @@ const counter = {
   network: 0,
   general: 0,
   permissions: 0,
-  statusAlert: 0
+  statusAlert: 0,
+  monitoringStart: 0
 }
 
 let code = null
+let monitoringActiveUsers = new Set()
 
 app.post('/location', (req, res) => {
   counter.location++
@@ -182,6 +185,27 @@ app.post('/panic-alert/deactivate', (req, res) => {
   }
   console.log(`✅ Código de desactivación válido:`, deactivationCode)
   res.sendStatus(200)
+})
+
+app.post('monitoring/start', (req, res) => {
+  const { userId } = req.body
+
+  if (!userId) {
+    res.status(400).json({ message: 'El ID de usuario es requerido' })
+    console.log('ID de usuario no proporcionado')
+    return
+  }
+
+  monitoringActiveUsers.add(userId)
+  counter.monitorungStart++
+  console.log(`Monitoreo iniciado para usuario: ${userId} (llamada # ${counter.monitoringStart})`)
+  console.log(`Total de usuarios con monitoreo activo: ${monitoringActiveUsers.size}`)
+
+  res.status(200).json({
+    message: 'Monitoreo iniciado correctamente',
+    userId,
+    timeStamp: new Date().toISOString()
+  })
 })
 
 io.on('connection', (socket) => {

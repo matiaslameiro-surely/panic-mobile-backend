@@ -293,6 +293,25 @@ Desactiva una alerta de pánico usando el código de desactivación.
   }
   ```
 
+### POST `/monitoring/start`
+Inicia el monitoreo constante del dispositivo. Este endpoint debe llamarse la primera vez que el usuario presiona el botón de pánico para activar el sistema de monitoreo.
+**Request Body:**
+```json
+{
+  "userId": "user-unique-id"
+}
+```
+
+**Response:**
+- `200`: Monitoreo iniciado correctamente
+  ```json
+  {
+    "message": "Monitoreo iniciado correctamente"
+  }
+  ```
+- `400`: Error en la solicitud
+
+
 Todos los endpoints devuelven un código de estado `200` cuando se recibe correctamente la información.
 
 ## Estructura del Proyecto
