@@ -92,9 +92,11 @@ app.post('/auth/verification-code', (req, res) => {
   res.status(200).json({
     jwt: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30',
     userData: {
+      userId: 'USR12345',
       dni: '12345678',
       fullName: 'Juan Perez',
       email: 'juanperez@gmail.com',
+      address: 'Av. Corrientes 1234, CABA'
     },
   })
 })
@@ -117,6 +119,15 @@ app.post('/auth/modify-user-data', (req, res) => {
   console.log(`✅ Email modificado:`, userData.email)
   res.status(200).json({
     userData,
+  })
+})
+
+app.post('/auth/report-user-data-error', (req, res) => {
+  const { phoneNumber } = req.body
+  console.log(`Error reportado para el número de teléfono:`, phoneNumber)
+  res.status(200).json({
+    success: true,
+    message: 'Error reportado correctamente'
   })
 })
 
