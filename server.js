@@ -123,8 +123,9 @@ app.post('/auth/modify-user-data', (req, res) => {
 })
 
 app.post('/auth/report-user-data-error', (req, res) => {
-  const { phoneNumber } = req.body
+  const { phoneNumber, message } = req.body
   console.log(`Error reportado para el número de teléfono:`, phoneNumber)
+  console.log(`Mensaje del error:`, message)
   res.status(200).json({
     success: true,
     message: 'Error reportado correctamente'
